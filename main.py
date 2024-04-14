@@ -58,8 +58,14 @@ def contact():
 
 @app.route('/projects')
 def projects():
+    headers = {
+        "Authorization": f"Bearer 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"           ##REMOVE THIS
+    }
+    repositories = requests.get(url=f"https://api.github.com/user/repos", headers=headers).json()
+    print(repositories)
     return render_template('projects.html', year=year)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
