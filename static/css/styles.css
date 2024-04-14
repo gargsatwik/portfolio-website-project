@@ -1,0 +1,35 @@
+.personal-handles {
+        height: 32px;
+        width: 32px;
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+.footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #f8f9fa;
+        color: #333;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+.header {
+        position: sticky;
+            top: 0;
+            z-index: 1000;
+    }
+
+p {
+        margin: 20px, 40px;
+}
+
+.mb-auto {
+        position: sticky;
+        top:0;
+        z-index: 1000;
+}
+
+
