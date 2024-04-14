@@ -1,7 +1,11 @@
 <head>
      <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
-<header class="mb-auto">
+<header style="position: sticky;
+  top: 0;
+  z-index: 1000;
+  text-align: center;  /* Center the text content */
+  background-color: white;" class="mb-auto">
     <div>
       <nav class="nav nav-masthead justify-content-center float-md-end">
     <a style="margin: 20px 10px;" class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="{{ url_for('home') }}">Home</a>

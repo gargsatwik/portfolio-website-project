@@ -2,7 +2,7 @@ import smtplib
 import wtforms
 from flask import Flask, render_template, request, url_for, redirect
 import datetime
-from flask_bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
 from openai import OpenAI
 import requests
@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret-key-goes-here'
 app.config["STATIC_FOLDER"] = "static"
 year = datetime.datetime.now().year
-Bootstrap(app)
+Bootstrap5(app)
 MY_EMAIL = os.environ.get('MY_EMAIL')
 PASSWORD = os.environ.get('PASSWORD')
 OPEN_AI_API_KEY = "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"
@@ -41,7 +41,7 @@ def about():
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    form = ContactForm
+    form = ContactForm()
     if request.method == 'GET':
         return render_template('contact.html', year=year, form=form)
     elif request.method == 'POST':
@@ -66,16 +66,16 @@ def projects():
         "Authorization": f"Bearer {BEARER_TOKEN}"
     }
     repositories = requests.get(url=f"https://api.github.com/user/repos", headers=projects_headers).json()
-    for project in repositories:
-        data = client.images.generate(
-            model="dall-e-3",
-            prompt=project['name'],
-            n=1,
-            size="1024x1024",
-            quality="standard"
-        )
-        img_url = data.data[0].url
-        project['img_url'] = img_url
+    # for project in repositories:
+    #     data = client.images.generate(
+    #         model="dall-e-3",
+    #         prompt=project['name'],
+    #         n=1,
+    #         size="1024x1024",
+    #         quality="standard"
+    #     )
+    #     img_url = data.data[0].url
+    #     project['img_url'] = img_url
     return render_template('projects.html', year=year, projects=repositories,)
 
 

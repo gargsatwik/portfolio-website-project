@@ -13,14 +13,14 @@
         background-color: #f8f9fa;
         color: #333;
         text-align: center;
-        padding: 10px 0;
+        height: 140px
     }
 
 .header {
         position: sticky;
-            top: 0;
-            z-index: 1000;
-    }
+        top: 0;
+        z-index: 1000;
+}
 
 p {
         margin: 20px, 40px;
@@ -125,4 +125,11 @@ p {
   height: 400px;  /* Allows content to define card height */
   display: flex;  /* Enables flexbox for vertical alignment */
   flex-direction: column;  /* Stacks content vertically */
+}
+
+body {
+    margin-top: 40px;
+    margin-right: 70px;
+    margin-left: 70px;
+    margin-bottom: 120px;
 }
