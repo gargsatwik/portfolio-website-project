@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, url_for, redirect
 import datetime
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
+from openai import OpenAI
 import requests
 import os
 
@@ -15,6 +16,9 @@ year = datetime.datetime.now().year
 Bootstrap(app)
 MY_EMAIL = os.environ.get('MY_EMAIL')
 PASSWORD = os.environ.get('PASSWORD')
+OPEN_AI_API_KEY = "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"
+BEARER_TOKEN = "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"
+client = OpenAI(api_key=OPEN_AI_API_KEY)
 
 
 class ContactForm(FlaskForm):
@@ -41,7 +45,7 @@ def contact():
     if request.method == 'GET':
         return render_template('contact.html', year=year, form=form)
     elif request.method == 'POST':
-        if form.validate_on_submit():
+        if form.validate_on_submit:
             name = form.name.data
             email = form.email.data
             phone_no = form.phone_no.data
@@ -51,21 +55,29 @@ def contact():
                 connection.login(user=MY_EMAIL, password=PASSWORD)
                 connection.sendmail(from_addr=MY_EMAIL,
                                     to_addrs=os.environ.get('TO_ADDRESS'),
-                                    msg=f"Subject:Contact Request\n\nName: {name}\nEmail: {email}\nPhone number: {phone_no}"
-                                        f"\nMessage: {message}")
+                                    msg=f"Subject:Contact Request\n\nName: {name}\nEmail: {email}\n"
+                                        f"Phone number: {phone_no}\nMessage: {message}")
         return redirect(url_for('contact'))
 
 
 @app.route('/projects')
 def projects():
-    headers = {
-        "Authorization": f"Bearer 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"           ##REMOVE THIS
+    projects_headers = {
+        "Authorization": f"Bearer {BEARER_TOKEN}"
     }
-    repositories = requests.get(url=f"https://api.github.com/user/repos", headers=headers).json()
-    print(repositories)
-    return render_template('projects.html', year=year)
+    repositories = requests.get(url=f"https://api.github.com/user/repos", headers=projects_headers).json()
+    for project in repositories:
+        data = client.images.generate(
+            model="dall-e-3",
+            prompt=project['name'],
+            n=1,
+            size="1024x1024",
+            quality="standard"
+        )
+        img_url = data.data[0].url
+        project['img_url'] = img_url
+    return render_template('projects.html', year=year, projects=repositories,)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-

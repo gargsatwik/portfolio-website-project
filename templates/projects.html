@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Projects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Satwik's Website</title>
 </head>
 <body>
-
+{% include "header.html" %}
+<div class="card-container">
+{% for project in projects %}
+<div class="col">
+          <div class="card shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{ project['img_url'] }}" alt="static/images/github-icon.webp">
+            <a href="{{ project['html_url'] }}">
+                <div class="card-body">
+              <p class="card-text" style="font-size: 20px">{{ project['name'] }}</p>
+              <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 5px">
+<!--                <div class="btn-group">-->
+<!--                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
+<!--                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+<!--                </div>-->
+                <small class="text-body-secondary" style="font-size: 16px">{{ project['pushed_at'].split('T')[0] }}</small>
+              </div>
+            </div>
+            </a>
+          </div>
+        </div>
+{% endfor %}
+</div>
+{% include "footer.html" %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>
