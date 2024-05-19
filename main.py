@@ -79,5 +79,10 @@ def projects():
     return render_template('projects.html', year=year, projects=repositories,)
 
 
+@app.route('/experiences')
+def experiences():
+    return render_template('experiences.html', year=year)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
