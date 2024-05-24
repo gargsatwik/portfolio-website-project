@@ -1,0 +1,8 @@
+Flask>=2.2.2  
+Flask-Bootstrap5>=2.1.1
+Flask-WTF>=1.0.7
+openai==0.27.0  
+requests>=2.28.1
+wtforms>=4.3.1
+smtplib  
+Jinja2>=3.1.2
