@@ -4,4 +4,3 @@ Flask-WTF==1.0.0
 WTForms==3.0.1
 openai==0.10.1
 requests==2.26.0
-smtplib
